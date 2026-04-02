@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理測驗：你的潛在性格是什麼？（超準！）</title>
+    <style>
+        /* 網頁基本樣式，看起來像個普通的心理測驗 */
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .question {
+            font-weight: bold;
+            color: #d35400;
+        }
+
+        /* 誘餌按鈕 */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* --- 驚嚇層 (預設隱藏) --- */
+        #jumpscare-overlay {
+            display: none; /* 初始狀態隱藏 */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: black;
+            z-index: 9999; /* 確保在最上層 */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #jumpscare-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 確保圖片不變形 */
+            animation: jitter 0.1s infinite; /* 增加抖動效果 */
+        }
+
+        /* 畫面抖動動畫 */
+        @keyframes jitter {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>心理測驗：你的潛在性格是什麼？</h1>
+    <p>這是一個由瑞士心理學家開發的深度性格測試。請放鬆心情，誠實地回答以下問題。這大約需要您 2 分鐘的時間。</p>
+    
+    <div class="question-list">
+        <h2>第一部分：直覺選擇</h2>
+        <p class="question">Q1. 當你走進一個陌生的房間，第一眼會注意哪裡？</p>
+        <input type="radio" name="q1"> 窗戶
+        <input type="radio" name="q1"> 房間正中央的裝飾
+        <input type="radio" name="q1"> 房間角落
+        <input type="radio" name="q1"> 出口
+
+        <h2>第二部分：情境模擬</h2>
+        <p class="question">Q2. 你在夢中來到了一個沒有人的荒島，你覺得身邊最不可能出現的是？</p>
+        <p>（請在這裡放入更多無聊或看似深奧的文字內容，引導使用者將滑鼠往下捲動，分散他們的注意。）</p>
+        <p>其實，根據最新的心理學研究，我們的直覺往往隱藏了我們最真實的恐懼。這些恐懼並非來自外在，而是來自我們內心深處的投射。當你誠實面對自己時，你是否曾感覺到，有什麼東西正在黑暗中盯著你？（增加一點點不安感）</p>
+        <div style="height: 500px;"></div> </div>
+
+    <button class="submit-btn" onclick="triggerJumpscare()">點擊查看測驗結果</button>
+</div>
+
+<div id="jumpscare-overlay">
+    <img id="jumpscare-image" src="image_0.png" alt="BOO!">
+    
+    <audio id="scream-audio" src="scream.mp3"></audio>
+</div>
+
+<script>
+    const images = [
+        'image_0.png', // Momo 圖片
+        'image_1.png'  // 恐怖笑臉圖片
+    ];
+
+    function triggerJumpscare() {
+        const overlay = document.getElementById('jumpscare-overlay');
+        const img = document.getElementById('jumpscare-image');
+        const audio = document.getElementById('scream-audio');
+
+        // 1. 顯示黑幕與圖片（全螢幕）
+        overlay.style.display = 'flex';
+        
+        // 進入全螢幕模式，效果更好 (可能會有權限限制)
+        if (overlay.requestFullscreen) {
+            overlay.requestFullscreen();
+        } else if (overlay.webkitRequestFullscreen) {
+            overlay.webkitRequestFullscreen();
+        }
+
+        // 2. 隨機選一張圖顯示
+        img.src = images[Math.floor(Math.random() * images.length)];
+        
+        // 3. 播放尖叫聲音 (瀏覽器通常要求使用者點擊後才能播放聲音)
+        audio.currentTime = 0; // 每次從頭播放
+        audio.play().catch(error => {
+            console.log("瀏覽器阻擋了自動播放聲音（即使有了用戶點擊）");
+        });
+
+        // 4. (選用) 1.5 秒後圖片切換，增加二次驚嚇
+        setTimeout(() => {
+            if(img.src.includes(images[0])) {
+                img.src = images[1];
+            } else {
+                img.src = images[0];
+            }
+        }, 1500);
+
+        // 5. 5秒後自動關閉驚嚇層，退出全螢幕
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }, 5000);
+    }
+</script>
+
+</body>
+</html>
